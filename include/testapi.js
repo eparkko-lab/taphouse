@@ -19,13 +19,7 @@ function executeTests() {
 
   //suiteDetails=JSON.parse('{"tests":[{"sequence":"3","testId":"t1"},{"sequence":"1","testId":"t2"},{"sequence":"2","testId":"t3"},{"sequence":"12","testId":"t3"}],"suiteName":"defaultValuesGetAndCreate"}');    
   sessionId = document.getElementById("sessionId")
-  if ( sessionId.textContent ){
-    //do nothing
-  } else {    
-    sessionId.textContent = uuidv4();
-    console.log("sessionId:" + sessionId.textContent);
-  }
-
+  sessionId.textContent = uuidv4();  
 
   var tests = suiteDetails.tests;
   var orderedTests = tests.sort((a, b) => (parseInt(a.sequence) > parseInt(b.sequence)) ? 1 : -1);
