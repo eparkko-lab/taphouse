@@ -4,7 +4,7 @@ function getSuite(suiteName) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("testsuiteDetails").textContent = JSON.stringify(JSON.parse(this.responseText),null,2);
+      document.getElementById("testsuiteDetails").textContent = JSON.stringify(JSON.parse(this.responseText), null, 2);
       suiteDetails = JSON.parse(this.responseText);
       document.getElementById("totalTestCount").textContent = suiteDetails.tests.length;
     }
@@ -17,9 +17,11 @@ function getSuite(suiteName) {
 
 function executeTests() {
 
-  //suiteDetails=JSON.parse('{"tests":[{"sequence":"3","testId":"t1"},{"sequence":"1","testId":"t2"},{"sequence":"2","testId":"t3"},{"sequence":"12","testId":"t3"}],"suiteName":"defaultValuesGetAndCreate"}');    
+  //suiteDetails=JSON.parse('{"tests":[{"sequence":"3","testId":"t1"},{"sequence":"1","testId":"t2"},{"sequence":"2","testId":"t3"},{"sequence":"12","testId":"t3"}],"suiteName":"defaultValuesGetAndCreate"}');
+  hide("verifiedResultsButton", false);
+  hide("verifiedResults", false);    
   sessionId = document.getElementById("sessionId")
-  sessionId.textContent = uuidv4();  
+  sessionId.textContent = uuidv4();
 
   var tests = suiteDetails.tests;
   var orderedTests = tests.sort((a, b) => (parseInt(a.sequence) > parseInt(b.sequence)) ? 1 : -1);
@@ -33,13 +35,32 @@ function executeTests() {
 
       await processTest(orderedTests[i]);
     }
+    hide("verifiedResultsButton", true);
+    hide("verifiedResults", true);
     return (console.log("complete"))
+
   }
   loopTests(arrayLength);
+
+}
+
+function getTestResults() {
+  sessionId = document.getElementById("sessionId")
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("verifiedResults").textContent = JSON.stringify(JSON.parse(this.responseText), null, 2);
+      verifiedResults = JSON.parse(this.responseText);
+    }
+  };
+  xhttp.open("GET", "https://xhbg5kpuu7.execute-api.us-east-2.amazonaws.com/p/verifiedResult" + sessionId + "?client_id=yaN8bv3EOemBtWNVPEryZO67U0OFJ14l4DNEI640", true);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.setRequestHeader("Accept", "application/json");
+  xhttp.send();
 }
 
 function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
   });
@@ -94,7 +115,7 @@ var processTest = function (test) {
         req2.setRequestHeader("Content-Type", "application/json");
         req2.addEventListener("load", function () {
           if (req2.status < 400) {
-            document.getElementById("testDetails").textContent = JSON.stringify(JSON.parse(this.responseText),null,2);
+            document.getElementById("testDetails").textContent = JSON.stringify(JSON.parse(this.responseText), null, 2);
             testDetails = JSON.parse(this.responseText);
             console.log("test requestId: " + testDetails.requestId);
             resolve(testDetails);
@@ -119,7 +140,7 @@ var processTest = function (test) {
         requestDetails["populatedWebAuthnRequest"] = decodedWebauthnRequest;
         //console.log("navigator.credentials." + requestDetails.requestType + "(" + requestDetails.requestBase64 + ")");  
         document.getElementById("webauthnRequestType").textContent = requestDetails.requestType;
-        document.getElementById("webauthnRequest").textContent = JSON.stringify(JSON.parse(decodedWebauthnRequest),null,2);
+        document.getElementById("webauthnRequest").textContent = JSON.stringify(JSON.parse(decodedWebauthnRequest), null, 2);
         resolve(requestDetails);
 
       })
@@ -150,7 +171,7 @@ var processTest = function (test) {
         req4.setRequestHeader("Accept", "application/json");
         req4.setRequestHeader("Content-Type", "application/json");
         req4.addEventListener("load", function () {
-          if (req4.status < 400) {            
+          if (req4.status < 400) {
             testDetails = JSON.parse(this.responseText);
             console.log("posted results");
             resolve(testDetails);
