@@ -18,7 +18,7 @@ function addEmptyRowsToTestDetailsTable() {
     table.deleteRow(1);
   }
 
-  //testSuiteDetails = document.getElementById("testsuiteDetails").innerHTML;
+  testSuiteDetails = document.getElementById("testsuiteDetails").innerHTML;
   //testSuiteDetails={
   //  "tests": [
   //    {
