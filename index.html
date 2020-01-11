@@ -18,7 +18,7 @@
                 <select name="webAuthnRequestTypeMenu" style="background-color: #c5c6c7"
                         onchange="getSuite(this.value)">
                         <option></option>
-                        <option>defaultValuesGetAndCreate</option>                        
+                        <option>defaultValuesGetAndCreate</option>
                 </select>
         </form>
         <br>
@@ -29,7 +29,17 @@
         <textarea readonly rows=1 cols=6 id="totalTestCount"></textarea>
         <br>Test Suite Details
         <br>
-        <textarea readonly rows=6 cols=65 id="testsuiteDetails"></textarea>
+        <textarea readonly rows=6 cols=65 id="testsuiteDetails" hidden></textarea>
+        <table border="1" bgcolor="white" id="testDetailsTable">
+                <tr id="testDetailsTableHeader">
+                        <td style="font-weight: bold; color: black;"">testId</td>
+                        <td style="font-weight: bold; color: black;">testName</td>
+                        <td style="font-weight: bold; color: black;">requestId</td>
+                        <td style="font-weight: bold;color: black;">assertionField</td>
+                        <td style="font-weight: bold;color: black;">expectedValue</td>
+                        <td style="font-weight: bold;color: black;">result</td>
+                </tr>
+        </table>
         <br>
         <br>
         <br>
@@ -47,23 +57,24 @@
         <textarea readonly rows=1 cols=6 id="currentTestCount"></textarea>
         <br>Current Test Details
         <br>
-        <textarea readonly rows=6 cols=65 id="testDetails"></textarea>
+        <textarea readonly rows=6 cols=65 id="testDetails" hidden></textarea>
+        
         <h3>Current Request Details</h3>
         Webauthn Request Type
         <textarea readonly rows=1 cols=7 id="webauthnRequestType"></textarea>
         <br>Webauthn Request
         <br>
-        <textarea readonly rows=6 cols=65 id="webauthnRequest"></textarea>        
+        <textarea readonly rows=6 cols=65 id="webauthnRequest" hidden></textarea>
         <br>
         <br>
         <br>Webauthn Response
-        <br>        
-        <textarea readonly rows=6 cols=65 id="webauthnResponse"></textarea>
+        <br>
+        <textarea readonly rows=6 cols=65 id="webauthnResponse" hidden></textarea>
         <br>
         <button onclick="getTestResults()" id="verifiedResultsButton">Evaluate the results</button>
         <br>Verified Results
-        <br>        
-        <textarea readonly rows=6 cols=65 id="verifiedResults"></textarea>
+        <br>
+        <textarea readonly rows=6 cols=65 id="verifiedResults" hidden></textarea>
 
 </body>
 
