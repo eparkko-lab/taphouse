@@ -7,6 +7,7 @@ function getSuite(suiteName) {
       document.getElementById("testsuiteDetails").textContent = JSON.stringify(JSON.parse(this.responseText), null, 2);
       suiteDetails = JSON.parse(this.responseText);
       document.getElementById("totalTestCount").textContent = suiteDetails.tests.length;
+      addEmptyRowsToTestDetailsTable();
     }
   };
   xhttp.open("GET", "https://xhbg5kpuu7.execute-api.us-east-2.amazonaws.com/p/suite/" + suiteName + "?client_id=yaN8bv3EOemBtWNVPEryZO67U0OFJ14l4DNEI640", true);
@@ -32,7 +33,7 @@ function executeTests() {
     for (var i = 0; i < n; i++) {
       console.log("processing test #:" + (i + 1) + " of: " + n);
       document.getElementById("currentTestCount").textContent = (i + 1);
-
+      addTestInfoToTestDetailsTable(orderedTests[i].testId, orderedTests[i].testName,orderedTests[i].requestId)
       await processTest(orderedTests[i]);
     }
     hide("verifiedResultsButton", true);
