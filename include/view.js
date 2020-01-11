@@ -1,6 +1,6 @@
-function hide(divName) {
+function hide(divName, on) {
     var x = document.getElementById(divName);
-    if (x.style.display === "none") {
+    if (on === true) {
       x.style.display = "block";
     } else {
       x.style.display = "none";
