@@ -45,7 +45,7 @@ function addTestInfoToTestDetailsTable(testId, testName, requestId) {
   var table = document.getElementById("testDetailsTable");
   
   for (var i = 0; i < table.rows.length; i++) {
-    var rowTestId = table.row[i].cell[0].innerHTML
+    var rowTestId = table.rows[i].cells[0].innerHTML
     if (rowTestId === testId)
       row.insertCell(1).innerHTML = testName;
       row.insertCell(2).innerHTML = requestId;
