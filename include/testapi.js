@@ -33,7 +33,6 @@ function executeTests() {
     for (var i = 0; i < n; i++) {
       console.log("processing test #:" + (i + 1) + " of: " + n);
       document.getElementById("currentTestCount").textContent = (i + 1);
-      addTestInfoToTestDetailsTable(orderedTests[i].testId, orderedTests[i].testName,orderedTests[i].requestId)
       await processTest(orderedTests[i]);
     }
     hide("verifiedResultsButton", true);
@@ -119,6 +118,7 @@ var processTest = function (test) {
             document.getElementById("testDetails").textContent = JSON.stringify(JSON.parse(this.responseText), null, 2);
             testDetails = JSON.parse(this.responseText);
             console.log("test requestId: " + testDetails.requestId);
+            addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName,testDetails.requestId)
             resolve(testDetails);
           } else {
             reject(new Error("Request failed: " + req2.statusText));
