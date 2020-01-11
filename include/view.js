@@ -19,19 +19,7 @@ function addEmptyRowsToTestDetailsTable() {
   }
 
   testSuiteDetails = JSON.parse(document.getElementById("testsuiteDetails").innerHTML);
-  //testSuiteDetails={
-  //  "tests": [
-  //    {
-  //      "sequence": "1",
-  //      "testId": "t1"
-  //    },
-  //    {
-  //      "sequence": "2",
-  //      "testId": "t2"
-  //    }
-  //  ],
-  //  "suiteName": "defaultValuesGetAndCreate"
-  //}
+  //testSuiteDetails = { "tests": [{ "sequence": "1", "testId": "t1" }, { "sequence": "2", "testId": "t2" }], "suiteName": "defaultValuesGetAndCreate" }
 
   for (var i = 0; i < testSuiteDetails.tests.length; i++) {
     var row = table.insertRow(i + 1);
@@ -43,12 +31,17 @@ function addEmptyRowsToTestDetailsTable() {
 
 function addTestInfoToTestDetailsTable(testId, testName, requestId) {
   var table = document.getElementById("testDetailsTable");
-  
-  for (var i = 0; i < table.rows.length; i++) {
-    var rowTestId = table.rows[i].cells[0].innerHTML
-    if (rowTestId === testId)
+
+  for (var i = 1; i < table.rows.length; i++) {
+    var row = table.rows[i]
+    var rowTestId = row.cells[0].innerHTML
+
+    if (rowTestId === testId) {
       row.insertCell(1).innerHTML = testName;
       row.insertCell(2).innerHTML = requestId;
+    }
+
+
   }
 
 
