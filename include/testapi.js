@@ -53,7 +53,7 @@ function getTestResults() {
       verifiedResults = JSON.parse(this.responseText);
     }
   };
-  xhttp.open("GET", "https://xhbg5kpuu7.execute-api.us-east-2.amazonaws.com/p/verifiyresults" + sessionId + "?client_id=yaN8bv3EOemBtWNVPEryZO67U0OFJ14l4DNEI640", true);
+  xhttp.open("GET", "https://xhbg5kpuu7.execute-api.us-east-2.amazonaws.com/p/verifiyresults/" + sessionId + "?client_id=yaN8bv3EOemBtWNVPEryZO67U0OFJ14l4DNEI640", true);
   xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
   xhttp.setRequestHeader("Accept", "application/json");
   xhttp.send();
