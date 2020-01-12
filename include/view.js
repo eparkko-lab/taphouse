@@ -45,9 +45,9 @@ function addTestInfoToTestDetailsTable(testId, testName, requestId) {
 
 function addResultsInfoToTestDetailsTable() {
   var table = document.getElementById("testDetailsTable");
-  //verifiedResultsDict = JSON.parse(document.getElementById("verifiedResults").innerHTML)
-  verifiedResultsDict={"t1": {  "testName": "defaultCreate", "requestId": "r1", "assertions": { "a1": { "comparisonType": "equals", "assertionId": "a1", "assertionField": "{parsedResponse.attestationObject}(fmt)", "expectedValue": "packed", "status": "PASS" }, "a3": { "comparisonType": "equals", "assertionId": "a3", "assertionField": "{parsedResponse.clientDataJSON.type}", "expectedValue": "webauthn.create", "status": "PASS"}} },
-    "t2": { "testName": "defaultGet", "requestId": "r2", "assertions": {   "a2": {     "comparisonType": "equals",     "assertionId": "a2",     "assertionField": "{parsedResponse.clientDataJSON.type}",     "expectedValue": "webauthn.get",     "status": "PASS"   } }    }  }
+  verifiedResultsDict = JSON.parse(document.getElementById("verifiedResults").innerHTML)
+  //verifiedResultsDict={"t1": {  "testName": "defaultCreate", "requestId": "r1", "assertions": { "a1": { "comparisonType": "equals", "assertionId": "a1", "assertionField": "{parsedResponse.attestationObject}(fmt)", "expectedValue": "packed", "status": "PASS" }, "a3": { "comparisonType": "equals", "assertionId": "a3", "assertionField": "{parsedResponse.clientDataJSON.type}", "expectedValue": "webauthn.create", "status": "PASS"}} },
+  //  "t2": { "testName": "defaultGet", "requestId": "r2", "assertions": {   "a2": {     "comparisonType": "equals",     "assertionId": "a2",     "assertionField": "{parsedResponse.clientDataJSON.type}",     "expectedValue": "webauthn.get",     "status": "PASS"   } }    }  }
 
   
   for (var i = 1; i < table.rows.length; i++) {
