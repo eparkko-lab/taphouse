@@ -42,41 +42,25 @@
         </table>
         <br>
         <br>
-        <br>
-        <br>
         <button onclick="executeTests()">Start the test suite</button>
         <br>
         <br>Using sessionID:
-        <br>
         <textarea readonly rows=1 cols=40 id="sessionId"></textarea>
-        <br>
-        <br>
-        <br>
-        <h3>Current WebAuthn Test Details</h3>
-        Current Test Count
-        <textarea readonly rows=1 cols=6 id="currentTestCount"></textarea>
-        <br>Current Test Details
-        <br>
+        <textarea readonly rows=1 cols=6 id="currentTestCount" hidden></textarea>
         <textarea readonly rows=6 cols=65 id="testDetails" hidden></textarea>
-        
-        <h3>Current Request Details</h3>
-        Webauthn Request Type
-        <textarea readonly rows=1 cols=7 id="webauthnRequestType"></textarea>
-        <br>Webauthn Request
-        <br>
+        <textarea readonly rows=1 cols=7 id="webauthnRequestType" hidden></textarea>
         <textarea readonly rows=6 cols=65 id="webauthnRequest" hidden></textarea>
-        <br>
-        <br>
-        <br>Webauthn Response
-        <br>
         <textarea readonly rows=6 cols=65 id="webauthnResponse" hidden></textarea>
         <br>
         <button onclick="getTestResults()" id="verifiedResultsButton">Evaluate the results</button>
-        <br>Verified Results
+        <!--<br>Verified Results
         <br>
         <textarea readonly rows=6 cols=65 id="verifiedResults" hidden></textarea>
-        
+
         <button onclick="addEmptyRowsToTestDetailsTable()">testing</button>
+        <button onclick="addTestInfoToTestDetailsTable('t1','abc','r123')">testing2</button>
+        <button onclick="addResultsInfoToTestDetailsTable()">testing3</button>
+        -->
 </body>
 
 </html>
