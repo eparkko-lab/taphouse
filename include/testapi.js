@@ -51,6 +51,7 @@ function getTestResults() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("verifiedResults").textContent = JSON.stringify(JSON.parse(this.responseText), null, 2);
       verifiedResults = JSON.parse(this.responseText);
+      addResultsInfoToTestDetailsTable();
     }
   };
   xhttp.open("GET", "https://xhbg5kpuu7.execute-api.us-east-2.amazonaws.com/p/verifyresults/" + sessionId + "?client_id=yaN8bv3EOemBtWNVPEryZO67U0OFJ14l4DNEI640", true);
