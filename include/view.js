@@ -18,8 +18,8 @@ function addEmptyRowsToTestDetailsTable() {
     table.deleteRow(1);
   }
 
-  testSuiteDetails = JSON.parse(document.getElementById("testsuiteDetails").innerHTML);
-  //testSuiteDetails = { "tests": [{ "sequence": "1", "testId": "t1" }, { "sequence": "2", "testId": "t2" }], "suiteName": "defaultValuesGetAndCreate" }
+  //testSuiteDetails = JSON.parse(document.getElementById("testsuiteDetails").innerHTML);
+  testSuiteDetails = { "tests": [{ "sequence": "1", "testId": "t1" }, { "sequence": "2", "testId": "t2" }], "suiteName": "defaultValuesGetAndCreate" }
 
   for (var i = 0; i < testSuiteDetails.tests.length; i++) {
     var row = table.insertRow(i + 1);
@@ -39,6 +39,65 @@ function addTestInfoToTestDetailsTable(testId, testName, requestId) {
     if (rowTestId === testId) {
       row.insertCell(1).innerHTML = testName;
       row.insertCell(2).innerHTML = requestId;
+    }
+
+
+  }
+
+
+}
+
+
+function addResultsInfoToTestDetailsTable() {
+  var table = document.getElementById("testDetailsTable");
+  //verifiedResultsDict=JSON.parse(document.getElementById("verifiedResults").innerHTML)
+  verifiedResultsDict={
+    "t1": {
+      "testName": "defaultCreate",
+      "requestId": "r1",
+      "assertions": {
+        "a1": {
+          "comparisonType": "equals",
+          "assertionId": "a1",
+          "assertionField": "{parsedResponse.attestationObject}(fmt)",
+          "expectedValue": "packed",
+          "status": "PASS"
+        },
+        "a3": {
+          "comparisonType": "equals",
+          "assertionId": "a3",
+          "assertionField": "{parsedResponse.clientDataJSON.type}",
+          "expectedValue": "webauthn.create",
+          "status": "PASS"
+        }
+      }
+    },
+    "t2": {
+      "testName": "defaultGet",
+      "requestId": "r2",
+      "assertions": {
+        "a2": {
+          "comparisonType": "equals",
+          "assertionId": "a2",
+          "assertionField": "{parsedResponse.clientDataJSON.type}",
+          "expectedValue": "webauthn.get",
+          "status": "PASS"
+        }
+      }
+    }
+  }
+
+  for (var i = 1; i < table.rows.length; i++) {
+    var row = table.rows[i];
+    var rowTestId = row.cells[0].innerHTML;
+    var j=0;
+    for(var key in verifiedResultsDict[rowTestId]["assertions"]) {
+      //Add the details to the following rows since there are many results per test
+      resultsRow = table.rows[i+j+1];
+      resultsRow.insertCell(3).innerHTML = verifiedResultsDict[rowTestId]["assertions"][key].assertionField;
+      resultsRow.insertCell(4).innerHTML = verifiedResultsDict[rowTestId]["assertions"][key].expectedValue;
+      resultsRow.insertCell(5).innerHTML = verifiedResultsDict[rowTestId]["assertions"][key].result;
+      j++;
     }
 
 
