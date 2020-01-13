@@ -94,6 +94,7 @@ var processTest = function (test) {
 
             requestDetails = JSON.parse(this.responseText);
             //console.log("requestDetails: " + requestDetails.requestType);
+            addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName,testDetails.requestId, requestDetails.request, requestDetails.requestType)
             resolve(requestDetails)
           } else {
             reject(new Error("Request failed: " + req3.statusText));
@@ -119,7 +120,6 @@ var processTest = function (test) {
             document.getElementById("testDetails").textContent = JSON.stringify(JSON.parse(this.responseText), null, 2);
             testDetails = JSON.parse(this.responseText);
             console.log("test requestId: " + testDetails.requestId);
-            addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName,testDetails.requestId, testDetails.request, testDetails.requestType)
             resolve(testDetails);
           } else {
             reject(new Error("Request failed: " + req2.statusText));
