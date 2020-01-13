@@ -38,7 +38,7 @@ function addTestInfoToTestDetailsTable(testId, testName, requestId, request, req
     if (rowTestId === testId) {
       row.insertCell(1).innerHTML = testName;
       //requestCell = row.insertCell(2).createElement('a');
-      row.insertCell(2).innerHTML = '<a href="https://eparkko-lab.github.io/webauthn-playground?requestType='+requestType+'&webauthnRequest='+request+'">'+requestId+'</a>';
+      row.insertCell(2).innerHTML = '<a href="https://eparkko-lab.github.io/webauthn-playground?requestType='+requestType+'&webauthnRequest='+request+'"target="_blank">'+requestId+'</a>';
       //requestCell.setAttribute('href','')
       //requestCell.appendChild(createTextNode('r1'));
     }
