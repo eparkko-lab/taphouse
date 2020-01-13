@@ -29,7 +29,7 @@ function addEmptyRowsToTestDetailsTable() {
 
 }
 
-function addTestInfoToTestDetailsTable(testId, testName, requestId) {
+function addTestInfoToTestDetailsTable(testId, testName, requestId, request, requestType) {
   var table = document.getElementById("testDetailsTable");
   for (var i = 1; i < table.rows.length; i++) {
     var row = table.rows[i]
@@ -37,7 +37,10 @@ function addTestInfoToTestDetailsTable(testId, testName, requestId) {
 
     if (rowTestId === testId) {
       row.insertCell(1).innerHTML = testName;
-      row.insertCell(2).innerHTML = requestId;
+      //requestCell = row.insertCell(2).createElement('a');
+      row.insertCell(2).innerHTML = '<a href="https://eparkko-lab.github.io/webauthn-playground?requestType='+requestType+'&webauthnRequest='+request+'">'+requestId+'</a>';
+      //requestCell.setAttribute('href','')
+      //requestCell.appendChild(createTextNode('r1'));
     }
   }
 }
@@ -46,9 +49,6 @@ function addTestInfoToTestDetailsTable(testId, testName, requestId) {
 function addResultsInfoToTestDetailsTable() {
   var table = document.getElementById("testDetailsTable");
   verifiedResultsDict = JSON.parse(document.getElementById("verifiedResults").innerHTML)
-  //verifiedResultsDict={"t1": {  "testName": "defaultCreate", "requestId": "r1", "assertions": { "a1": { "comparisonType": "equals", "assertionId": "a1", "assertionField": "{parsedResponse.attestationObject}(fmt)", "expectedValue": "packed", "status": "PASS" }, "a3": { "comparisonType": "equals", "assertionId": "a3", "assertionField": "{parsedResponse.clientDataJSON.type}", "expectedValue": "webauthn.create", "status": "PASS"}} },
-  //  "t2": { "testName": "defaultGet", "requestId": "r2", "assertions": {   "a2": {     "comparisonType": "equals",     "assertionId": "a2",     "assertionField": "{parsedResponse.clientDataJSON.type}",     "expectedValue": "webauthn.get",     "status": "PASS"   } }    }  }
-
   
   for (var i = 1; i < table.rows.length; i++) {
     var row = table.rows[i];
