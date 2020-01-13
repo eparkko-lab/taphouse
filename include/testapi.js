@@ -94,7 +94,7 @@ var processTest = function (test) {
 
             requestDetails = JSON.parse(this.responseText);
             //console.log("requestDetails: " + requestDetails.requestType);
-            addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName,testDetails.requestId, requestDetails.request, requestDetails.requestType)
+            addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName,testDetails.requestId, requestDetails.requestBase64, requestDetails.requestType)
             resolve(requestDetails)
           } else {
             reject(new Error("Request failed: " + req3.statusText));
