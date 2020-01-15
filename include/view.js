@@ -20,6 +20,7 @@ function deleteTableRows() {
 }
 
 function addTestIdListToTable() {
+  var table = document.getElementById("testDetailsTable");
   testSuiteDetails = JSON.parse(document.getElementById("testsuiteDetails").innerHTML);
 
   for (var i = 0; i < testSuiteDetails.tests.length; i++) {
