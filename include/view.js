@@ -52,7 +52,6 @@ function populateTestDetails(testId, testName, requestId, request, requestType){
 
 function addTestInfoToTestDetailsTable(testId, testName, requestId, request, requestType) {
   
-  deleteTableRows();
   addTestIdListToTable();
   populateTestDetails(testId, testName, requestId, request, requestType);
   

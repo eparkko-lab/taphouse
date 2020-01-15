@@ -94,6 +94,7 @@ var processTest = function (test) {
 
             requestDetails = JSON.parse(this.responseText);
             //console.log("requestDetails: " + requestDetails.requestType);
+            deleteTableRows();
             addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName,testDetails.requestId, requestDetails.requestBase64, requestDetails.requestType)
             resolve(requestDetails)
           } else {
