@@ -28,12 +28,12 @@ function executeTests() {
   var orderedTests = tests.sort((a, b) => (parseInt(a.sequence) > parseInt(b.sequence)) ? 1 : -1);
   var arrayLength = orderedTests.length;
 
+  deleteTableRows();
   const loopTests = async n => {
 
     for (var i = 0; i < n; i++) {
       console.log("processing test #:" + (i + 1) + " of: " + n);
       document.getElementById("currentTestCount").textContent = (i + 1);
-      deleteTableRows();
       await processTest(orderedTests[i]);
     }
     hide("verifiedResultsButton", true);
