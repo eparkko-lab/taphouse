@@ -33,6 +33,7 @@ function executeTests() {
     for (var i = 0; i < n; i++) {
       console.log("processing test #:" + (i + 1) + " of: " + n);
       document.getElementById("currentTestCount").textContent = (i + 1);
+      deleteTableRows();
       await processTest(orderedTests[i]);
     }
     hide("verifiedResultsButton", true);
@@ -91,10 +92,7 @@ var processTest = function (test) {
         req3.setRequestHeader("Content-Type", "application/json");
         req3.addEventListener("load", function () {
           if (req3.status < 400) {
-
             requestDetails = JSON.parse(this.responseText);
-            //console.log("requestDetails: " + requestDetails.requestType);
-            deleteTableRows();
             addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName,testDetails.requestId, requestDetails.requestBase64, requestDetails.requestType)
             resolve(requestDetails)
           } else {
