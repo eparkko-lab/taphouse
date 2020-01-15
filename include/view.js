@@ -20,7 +20,7 @@ function deleteTableRows() {
 }
 
 function addTestIdListToTable() {
-  var table = document.getElementById("testDetailsTable");
+  var table = document.getElementById("testDetailsTable");y
   testSuiteDetails = JSON.parse(document.getElementById("testsuiteDetails").innerHTML);
 
   for (var i = 0; i < testSuiteDetails.tests.length; i++) {
@@ -35,7 +35,7 @@ function addEmptyRowsToTestDetailsTable() {
   addTestIdListToTable();
 }
 
-function populateTestDetails(){
+function populateTestDetails(testId, testName, requestId, request, requestType){
   var table = document.getElementById("testDetailsTable");
 
   for (var i = 1; i < table.rows.length; i++) {
@@ -54,7 +54,7 @@ function addTestInfoToTestDetailsTable(testId, testName, requestId, request, req
   
   deleteTableRows();
   addTestIdListToTable();
-  populateTestDetails();
+  populateTestDetails(testId, testName, requestId, request, requestType);
   
 }
 
