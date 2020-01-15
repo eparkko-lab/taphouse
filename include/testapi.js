@@ -28,7 +28,7 @@ function executeTests() {
   var orderedTests = tests.sort((a, b) => (parseInt(a.sequence) > parseInt(b.sequence)) ? 1 : -1);
   var arrayLength = orderedTests.length;
 
-  deleteTableRows();
+  //deleteTableRows();
   const loopTests = async n => {
 
     for (var i = 0; i < n; i++) {
