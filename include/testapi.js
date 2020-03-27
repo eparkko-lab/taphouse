@@ -1,4 +1,5 @@
 var suiteDetails;
+var GSuiteName;
 
 function getSuite(suiteName) {
   var xhttp = new XMLHttpRequest();
@@ -10,6 +11,7 @@ function getSuite(suiteName) {
       addEmptyRowsToTestDetailsTable();
     }
   };
+  GSuiteName = suiteName;
   xhttp.open("GET", "https://xhbg5kpuu7.execute-api.us-east-2.amazonaws.com/p/suite/" + suiteName + "?client_id=yaN8bv3EOemBtWNVPEryZO67U0OFJ14l4DNEI640", true);
   xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
   xhttp.setRequestHeader("Accept", "application/json");
@@ -17,8 +19,7 @@ function getSuite(suiteName) {
 }
 
 function executeTests() {
-
-  //suiteDetails=JSON.parse('{"tests":[{"sequence":"3","testId":"t1"},{"sequence":"1","testId":"t2"},{"sequence":"2","testId":"t3"},{"sequence":"12","testId":"t3"}],"suiteName":"defaultValuesGetAndCreate"}');
+  getSuite(GSuiteName);
   hide("verifiedResultsButton", false);
   hide("verifiedResults", false);    
   sessionId = document.getElementById("sessionId")
