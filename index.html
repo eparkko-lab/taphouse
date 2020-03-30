@@ -9,16 +9,25 @@
         <link href="./include/styles.css" rel="stylesheet" />
 </head>
 
-<body>
+<body onload="CheckQueryParams()">
 
         <h1>WebAuthn API Tester</h1>
 
-        <h2>WebAuthn Test Suite</h2>
+        <h2>WebAuthn Test Suite</h3>        
+        Which test suite would you like to execute?
         <form>
                 <select name="webAuthnRequestTypeMenu" style="background-color: #c5c6c7"
                         onchange="getSuite(this.value)">
                         <option></option>                        
                         <option>FIDO2-Browser-Support</option>                                                
+                </select>
+        </form>
+        <br>
+        Do you want user prompts between each test?
+        <form>
+                <select name="promptsMenu" style="background-color: #c5c6c7">
+                        <option>true</option>                        
+                        <option>false</option>                                                
                 </select>
         </form>
         <br>
