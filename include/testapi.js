@@ -197,7 +197,7 @@ var processTest = function (test) {
       return new Promise((resolve, reject) => {
         if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
           sleep(8000);
-          resolve(requestDetails);
+          //resolve(requestDetails);
         } else {
           resolve(requestDetails);
         }
