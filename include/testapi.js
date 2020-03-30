@@ -164,16 +164,16 @@ var processTest = function (test) {
       })
     }
 
-    var promptUser = function (testDetails) {
+    var promptUser = function (requestDetails) {
       return new Promise((resolve, reject) => {
         if ( document.getElementsByName("promptsMenu")[0].value === "true" ) {
           testDetails=JSON.parse(document.getElementById("testDetails").textContent);          
           message="About to execute test:" + testDetails.testName
           alert(message);
-          resolve();
+          resolve(requestDetails);
         } else
         {
-          resolve();
+          resolve(requestDetails);
         }
 
       })
@@ -239,9 +239,9 @@ var processTest = function (test) {
       .then(function (requestDetails) {
         return buildWebAuthnRequest(requestDetails);
       })
-      .then(function (testDetails) {
-        return promptUser(testDetails);
-      })
+      .then(function (requestDetails) {
+        return promptUser(requestDetails);
+      })     
       .then(function (requestDetails) {
         return executeWebAuthn(requestDetails);
       })
