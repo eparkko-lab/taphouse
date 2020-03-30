@@ -21,7 +21,7 @@ function getSuite(suiteName) {
 function executeTests() {
   getSuite(GSuiteName);
   hide("verifiedResultsButton", false);
-  hide("verifiedResults", false);    
+  hide("verifiedResults", false);
   sessionId = document.getElementById("sessionId")
   sessionId.textContent = uuidv4();
 
@@ -66,7 +66,7 @@ function CheckQueryParams() {
   var url_string = window.location.href
   var url = new URL(url_string);
   testNameParam = url.searchParams.get("testName");
-  promptsParam = url.searchParams.get("prompts");  
+  delayTypeParam = url.searchParams.get("delayType");
   currentHostName = window.location.hostname
   setInitialValues();
 }
@@ -74,7 +74,7 @@ function CheckQueryParams() {
 function setInitialValues() {
   //Override the rpid to wherever the site is hosted.
   document.getElementsByName("webAuthnRequestTypeMenu")[0].value = testNameParam;
-  document.getElementsByName("promptsMenu")[0].value = promptsParam;
+  document.getElementsByName("delayMenu")[0].value = delayTypeParam;
   getSuite(testNameParam);
 }
 
@@ -110,7 +110,7 @@ var processTest = function (test) {
         req3.addEventListener("load", function () {
           if (req3.status < 400) {
             requestDetails = JSON.parse(this.responseText);
-            addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName,testDetails.requestId, requestDetails.requestBase64, requestDetails.requestType)
+            addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName, testDetails.requestId, requestDetails.requestBase64, requestDetails.requestType)
             resolve(requestDetails)
           } else {
             reject(new Error("Request failed: " + req3.statusText));
@@ -166,13 +166,12 @@ var processTest = function (test) {
 
     var promptUser = function (requestDetails) {
       return new Promise((resolve, reject) => {
-        if ( document.getElementsByName("promptsMenu")[0].value === "true" ) {
-          testDetails=JSON.parse(document.getElementById("testDetails").textContent);          
-          message="About to execute test:" + testDetails.testName
+        if (document.getElementsByName("delayMenu")[0].value === "prompts") {
+          testDetails = JSON.parse(document.getElementById("testDetails").textContent);
+          message = "Press OK to execute next test:   " + testDetails.testName
           alert(message);
           resolve(requestDetails);
-        } else
-        {
+        } else {
           resolve(requestDetails);
         }
 
@@ -193,6 +192,16 @@ var processTest = function (test) {
         //console.log("navigator.credentials." + requestDetails.requestType + "(" + requestDetails.decodedWebauthnRequest + ")");                
       })
     }
+
+    var delayRequest = function (requestDetails) {
+      return new Promise((resolve, reject) => {
+        if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
+          sleep(8000);
+          resolve(requestDetails);
+        }
+      })
+    }
+
 
     var postResult = function () {
       return new Promise((resolve, reject) => {
@@ -241,12 +250,12 @@ var processTest = function (test) {
       })
       .then(function (requestDetails) {
         return promptUser(requestDetails);
-      })     
+      })
       .then(function (requestDetails) {
         return executeWebAuthn(requestDetails);
       })
-      .then(function () {
-        return sleep(8000);
+      .then(function (requestDetails) {
+        return delayRequest(requestDetails);
       })
       .then(function () {
         return postResult();
