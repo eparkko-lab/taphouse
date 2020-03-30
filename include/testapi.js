@@ -21,7 +21,7 @@ function getSuite(suiteName) {
 function executeTests() {
   getSuite(GSuiteName);
   hide("verifiedResultsButton", false);
-  hide("verifiedResults", false);
+  hide("verifiedResults", true);
   sessionId = document.getElementById("sessionId")
   sessionId.textContent = uuidv4();
 
