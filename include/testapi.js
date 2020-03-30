@@ -198,6 +198,8 @@ var processTest = function (test) {
         if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
           sleep(8000);
           resolve(requestDetails);
+        } else {
+          resolve(requestDetails);
         }
       })
     }
