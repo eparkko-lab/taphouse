@@ -256,8 +256,13 @@ var processTest = function (test) {
       .then(function (requestDetails) {
         return executeWebAuthn(requestDetails);
       })
-      .then(function (requestDetails) {
-        return delayRequest(requestDetails);
+      .then(function () {
+        if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
+          time = 8000;
+        } else {
+          time = 1
+        }
+        return sleep(time);
       })
       .then(function () {
         return postResult();
