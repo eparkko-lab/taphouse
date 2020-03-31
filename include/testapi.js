@@ -278,7 +278,10 @@ var processTest = function (test) {
       .then(async function () {
         return await postResult();
       })
-      .then(_ => console.log('after all'))
+      .then(_ => {
+        console.log('after all');
+        resolve();
+      })
     //.then(sleep(100))      
 
   })
