@@ -279,7 +279,7 @@ var processTest = function (test) {
         return postResult();
       })
       .then(function () {
-        resolve("done");
+        Promise.resolve();
       })
     //.then(sleep(100))      
 
