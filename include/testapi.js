@@ -175,7 +175,7 @@ var processTest = function (test) {
     }
 
     var promptUser = async function (requestDetails) {
-      return await new Promise((resolve, reject) => {
+      let promise1 = await new Promise((resolve, reject) => {
         if (document.getElementsByName("delayMenu")[0].value === "prompts") {
           testDetails = JSON.parse(document.getElementById("testDetails").textContent);
           message = "Press OK to execute next test:   " + testDetails.testName
@@ -186,10 +186,11 @@ var processTest = function (test) {
         }
 
       })
+      return promise1
     }
 
-    var executeWebAuthn = function (requestDetails) {
-      return new Promise((resolve, reject) => {
+    var executeWebAuthn = async function (requestDetails) {
+      return await new Promise((resolve, reject) => {
         if (requestDetails.requestType === "get") {
           authenticate();
           resolve()
@@ -264,7 +265,7 @@ var processTest = function (test) {
         return promptUser(requestDetails);
       })
       .then(function (requestDetails) {
-        return executeWebAuthn(requestDetails);        
+        return executeWebAuthn(requestDetails);                        
       })
       .then(function () {
         if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
