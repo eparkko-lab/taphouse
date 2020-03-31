@@ -190,7 +190,7 @@ var processTest = function (test) {
     }
 
     var executeWebAuthn = async function (requestDetails) {
-      return await new Promise((resolve, reject) => {
+      let promise2 = await new Promise((resolve, reject) => {
         if (requestDetails.requestType === "get") {
           authenticate();
           resolve()
@@ -200,7 +200,7 @@ var processTest = function (test) {
         } else {
           reject();
         }
-        //console.log("navigator.credentials." + requestDetails.requestType + "(" + requestDetails.decodedWebauthnRequest + ")");                
+        return promise2 
       })
     }
 
