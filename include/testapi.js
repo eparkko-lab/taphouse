@@ -95,7 +95,7 @@ function uuidv4() {
   });
 }
 
-var processTest = function (test) {
+var processTest = async function (test) {
   return new Promise((resolve, reject) => {
     var testDetails;
     var requestDetails;
@@ -265,7 +265,7 @@ var processTest = function (test) {
         return promptUser(requestDetails);
       })
       .then(function (requestDetails) {
-        return executeWebAuthn(requestDetails);                        
+        return await executeWebAuthn(requestDetails);                        
       })
       .then(function () {
         if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
@@ -279,7 +279,7 @@ var processTest = function (test) {
         return postResult();
       })
       .then(function () {
-        return "done";
+        resolve("done");
       })
     //.then(sleep(100))      
 
