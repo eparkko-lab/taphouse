@@ -100,13 +100,13 @@ var processTest = function (test) {
     var testDetails;
     var requestDetails;
 
-    var sleep = function (ms) {
-      return new Promise((resolve, reject) => {
-        console.log("start sleep: " + ms + "ms");
-        setTimeout(resolve, ms);
-      }
-      )
-    }
+    //var sleep = function (ms) {
+    //  return new Promise((resolve, reject) => {
+    //    console.log("start sleep: " + ms + "ms");
+    //    setTimeout(resolve, ms);
+    //  }
+    //  )
+    //}
 
     var getRequest = function (testDetails) {
       return new Promise((resolve, reject) => {
@@ -275,12 +275,10 @@ var processTest = function (test) {
       //  }
       //  return delayRequest(time);
       //})
-      .then(function () {
-        return postResult();
+      .then(async function () {
+        return await postResult();
       })
-      .then(function () {
-        Promise.resolve();
-      })
+      .then(_ => console.log('after all'))
     //.then(sleep(100))      
 
   })
