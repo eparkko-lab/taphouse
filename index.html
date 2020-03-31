@@ -23,13 +23,13 @@
                 </select>
         </form>
         <br>
-        Would you like prompts or static 8 second delays between each Webauthn request?
+        <!--Would you like prompts or static 8 second delays between each Webauthn request?
         <form>
                 <select name="delayMenu" style="background-color: #c5c6c7">
                         <option>prompts</option>                        
                         <option>staticDelay</option>                                                
                 </select>
-        </form>
+        </form>-->
         <br>
         <button onclick="executeTests()">Start the test suite</button>
         <br>
@@ -60,7 +60,7 @@
         <textarea readonly rows=6 cols=65 id="webauthnRequest"></textarea>
         <textarea readonly rows=6 cols=65 id="webauthnResponse"></textarea>
         <button onclick="getTestResults()" id="verifiedResultsButton">Evaluate the results</button>
-        <textarea readonly rows=6 cols=65 id="verifiedResults" ></textarea>
+        <textarea readonly rows=6 cols=65 id="verifiedResults" hidden></textarea>
 </body>
 
 </html>

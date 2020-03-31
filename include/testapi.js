@@ -21,7 +21,7 @@ function getSuite(suiteName) {
 function executeTests() {
   getSuite(GSuiteName);
   hide("verifiedResultsButton", false);
-  hide("verifiedResults", true);
+  hide("verifiedResults", false);
   sessionId = document.getElementById("sessionId")
   sessionId.textContent = uuidv4();
 
@@ -76,7 +76,7 @@ function CheckQueryParams() {
   var url_string = window.location.href
   var url = new URL(url_string);
   testNameParam = url.searchParams.get("testName");
-  delayTypeParam = url.searchParams.get("delayType");
+  //delayTypeParam = url.searchParams.get("delayType");
   currentHostName = window.location.hostname
   setInitialValues();
 }
@@ -84,7 +84,7 @@ function CheckQueryParams() {
 function setInitialValues() {
   //Override the rpid to wherever the site is hosted.
   document.getElementsByName("webAuthnRequestTypeMenu")[0].value = testNameParam;
-  document.getElementsByName("delayMenu")[0].value = delayTypeParam;
+  //document.getElementsByName("delayMenu")[0].value = delayTypeParam;
   getSuite(testNameParam);
 }
 
@@ -95,44 +95,20 @@ function uuidv4() {
   });
 }
 
-var processTest = function (test) {
+async function run(test) {
+
+  await processTest(test);
+  console.log("run complete");
+  return;
+
+}
+
+
+
+var processTest = async function (test) {
   return new Promise((resolve, reject) => {
     var testDetails;
     var requestDetails;
-
-    //var sleep = function (ms) {
-    //  return new Promise((resolve, reject) => {
-    //    console.log("start sleep: " + ms + "ms");
-    //    setTimeout(resolve, ms);
-    //  }
-    //  )
-    //}
-
-    var getRequest = function (testDetails) {
-      return new Promise((resolve, reject) => {
-        console.log("testDetails:" + testDetails);
-        var req3 = new XMLHttpRequest();
-
-        req3.open("GET", "https://xhbg5kpuu7.execute-api.us-east-2.amazonaws.com/p/request/" + testDetails.requestId + "?client_id=yaN8bv3EOemBtWNVPEryZO67U0OFJ14l4DNEI640", true);
-        req3.setRequestHeader("Access-Control-Allow-Origin", "*");
-        req3.setRequestHeader("Accept", "application/json");
-        req3.setRequestHeader("Content-Type", "application/json");
-        req3.addEventListener("load", function () {
-          if (req3.status < 400) {
-            requestDetails = JSON.parse(this.responseText);
-            addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName, testDetails.requestId, requestDetails.requestBase64, requestDetails.requestType)
-            resolve(requestDetails)
-          } else {
-            reject(new Error("Request failed: " + req3.statusText));
-          }
-        });
-        req3.addEventListener("error", function () {
-          reject(new Error("Network error"));
-        });
-        req3.send();
-
-      })
-    }
 
     var retrieveTest = function (test) {
       return new Promise((resolve, reject) => {
@@ -161,6 +137,34 @@ var processTest = function (test) {
       })
     }
 
+    var getRequest = function (testDetails) {
+      return new Promise((resolve, reject) => {
+        console.log("testDetails:" + testDetails);
+        var req3 = new XMLHttpRequest();
+
+        req3.open("GET", "https://xhbg5kpuu7.execute-api.us-east-2.amazonaws.com/p/request/" + testDetails.requestId + "?client_id=yaN8bv3EOemBtWNVPEryZO67U0OFJ14l4DNEI640", true);
+        req3.setRequestHeader("Access-Control-Allow-Origin", "*");
+        req3.setRequestHeader("Accept", "application/json");
+        req3.setRequestHeader("Content-Type", "application/json");
+        req3.addEventListener("load", function () {
+          if (req3.status < 400) {
+            requestDetails = JSON.parse(this.responseText);
+            addTestInfoToTestDetailsTable(testDetails.testId, testDetails.testName, testDetails.requestId, requestDetails.requestBase64, requestDetails.requestType)
+            resolve(requestDetails)
+          } else {
+            reject(new Error("Request failed: " + req3.statusText));
+          }
+        });
+        req3.addEventListener("error", function () {
+          reject(new Error("Network error"));
+        });
+        req3.send();
+
+      })
+    }
+
+  
+
     var buildWebAuthnRequest = function (requestDetails) {
       return new Promise((resolve, reject) => {
         decodedWebauthnRequest = atob(requestDetails.requestBase64);
@@ -174,23 +178,34 @@ var processTest = function (test) {
       })
     }
 
-    var promptUser = async function (requestDetails) {
-      let promise1 = await new Promise((resolve, reject) => {
-        if (document.getElementsByName("delayMenu")[0].value === "prompts") {
-          testDetails = JSON.parse(document.getElementById("testDetails").textContent);
+    var promptUser =  function (requestDetails) {
+      let promise1 = new Promise((resolve, reject) => {
+        
+        testDetails = JSON.parse(document.getElementById("testDetails").textContent);
           message = "Press OK to execute next test:   " + testDetails.testName
           alert(message);
           resolve(requestDetails);
-        } else {
-          resolve(requestDetails);
-        }
+        
+        //if (document.getElementsByName("delayMenu")[0].value === "prompts") {
+          
+        //} else {
+        //  resolve(requestDetails);
+       // }
 
       })
       return promise1
     }
 
-    var executeWebAuthn = async function (requestDetails) {
-      let promise2 = await new Promise((resolve, reject) => {
+    var sleep = function (ms) {
+      return new Promise((resolve, reject) => {
+        console.log("start sleep: " + ms + "ms");
+        setTimeout(resolve, ms);
+      }
+      )
+    }
+
+    var executeWebAuthn = function (requestDetails) {
+      let promise2 = new Promise((resolve, reject) => {
         if (requestDetails.requestType === "get") {
           authenticate();
           resolve()
@@ -203,7 +218,7 @@ var processTest = function (test) {
         return promise2
       })
     }
-
+        
     //var delayRequest = async function (time) {
     //  return await new Promise((resolve, reject) => {
     //    if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
@@ -253,7 +268,6 @@ var processTest = function (test) {
       }
       )
     }
-
     retrieveTest(test)
       .then(function (testDetails) {
         return getRequest(testDetails);
@@ -261,28 +275,24 @@ var processTest = function (test) {
       .then(function (requestDetails) {
         return buildWebAuthnRequest(requestDetails);
       })
+      .then(function (testDetails) {
+        return promptUser(testDetails);
+      })
       .then(function (requestDetails) {
-        return promptUser(requestDetails);
+        return executeWebAuthn(requestDetails);
       })
-      .then(async function (requestDetails) {
-        return await executeWebAuthn(requestDetails);
+      .then(function () {
+        return sleep(8000);
       })
-      //.then(function () {
-      //  if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
-      //    time = 8000;
-      //  } else {
-      //    time = 1
-      //  }
-      //  return delayRequest(time);
-      //})
-      .then(async function () {
-        return await postResult();
+      .then(function () {
+        return postResult();
       })
-      .then(_ => {
-        console.log('after all');
-        resolve();
+      .then(function () {
+        resolve("done");
       })
+                 
     //.then(sleep(100))      
+      
 
   })
 }
