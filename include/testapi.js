@@ -95,7 +95,7 @@ function uuidv4() {
   });
 }
 
-var processTest = async function (test) {
+var processTest = function (test) {
   return new Promise((resolve, reject) => {
     var testDetails;
     var requestDetails;
@@ -204,10 +204,10 @@ var processTest = async function (test) {
       })
     }
 
-    var delayRequest = function (time) {
-      return new Promise((resolve, reject) => {
+    var delayRequest = async function (time) {
+      return await new Promise((resolve, reject) => {
         if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
-          sleep(time);
+          await sleep(time);
           resolve();
         } else {
           resolve();
@@ -265,7 +265,7 @@ var processTest = async function (test) {
         return promptUser(requestDetails);
       })
       .then(function (requestDetails) {
-        return await executeWebAuthn(requestDetails);                        
+        return executeWebAuthn(requestDetails);                        
       })
       .then(function () {
         if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
@@ -273,7 +273,7 @@ var processTest = async function (test) {
         } else {
           time = 1
         }
-        return sleep(time);
+        return delayRequest(time);
       })
       .then(function () {
         return postResult();
