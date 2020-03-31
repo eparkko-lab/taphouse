@@ -61,15 +61,15 @@ function getTestResults() {
     } else {
       console.log(xhttp);
       console.log(xhttp.statusText);
-      document.getElementById("verifiedResults").textContent = this.responseText;            
+      document.getElementById("verifiedResults").textContent = this.responseText;
     }
   });
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      
+
     }
   };
-  
+
 }
 
 function CheckQueryParams() {
@@ -200,20 +200,20 @@ var processTest = function (test) {
         } else {
           reject();
         }
-        return promise2 
+        return promise2
       })
     }
 
-    var delayRequest = async function (time) {
-      return await new Promise((resolve, reject) => {
-        if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
-          sleep(time);
-          resolve();
-        } else {
-          resolve();
-        }
-      })
-    }
+    //var delayRequest = async function (time) {
+    //  return await new Promise((resolve, reject) => {
+    //    if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
+    //      sleep(time);
+    //      resolve();
+    //    } else {
+    //      resolve();
+    //    }
+    //  })
+    //}
 
 
     var postResult = function () {
@@ -265,7 +265,7 @@ var processTest = function (test) {
         return promptUser(requestDetails);
       })
       .then(async function (requestDetails) {
-        return await executeWebAuthn(requestDetails);                        
+        return await executeWebAuthn(requestDetails);
       })
       //.then(function () {
       //  if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {

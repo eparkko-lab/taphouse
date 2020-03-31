@@ -38,13 +38,11 @@ function authenticate() {
     })
 }
 
-async function getAssertion(webAuthnRequest) {
+function getAssertion(webAuthnRequest) {
   console.log('Get assertion', webAuthnRequest);
-  pkc = navigator.credentials.get({
+  return navigator.credentials.get({
     publicKey: decodePublicKeyCredentialRequestOptions(webAuthnRequest),
   });
-  await pkc;
-  return pkc;
 }
 
 
@@ -114,12 +112,10 @@ function writeHistory(historyType, request, response, url) {
     + historyArea.value;
 }
 
-async function createCredential(request) {
-  pkc = navigator.credentials.create({
+function createCredential(request) {
+  return navigator.credentials.create({
     publicKey: decodePublicKeyCredentialCreationOptions(request)
   });
-  await pkc;
-  return pkc;
 }
 
 function decodePublicKeyCredentialCreationOptions(request) {
