@@ -207,7 +207,7 @@ var processTest = function (test) {
     var delayRequest = async function (time) {
       return await new Promise((resolve, reject) => {
         if (document.getElementsByName("delayMenu")[0].value === "staticDelay") {
-          await sleep(time);
+          sleep(time);
           resolve();
         } else {
           resolve();
