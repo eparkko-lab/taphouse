@@ -38,9 +38,9 @@ function authenticate() {
     })
 }
 
-function getAssertion(webAuthnRequest) {
+async function getAssertion(webAuthnRequest) {
   console.log('Get assertion', webAuthnRequest);
-  return navigator.credentials.get({
+  return await navigator.credentials.get({
     publicKey: decodePublicKeyCredentialRequestOptions(webAuthnRequest),
   });
 }
@@ -112,8 +112,8 @@ function writeHistory(historyType, request, response, url) {
     + historyArea.value;
 }
 
-function createCredential(request) {
-  return navigator.credentials.create({
+async function createCredential(request) {
+  return await navigator.credentials.create({
     publicKey: decodePublicKeyCredentialCreationOptions(request)
   });
 }
