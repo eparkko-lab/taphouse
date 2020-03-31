@@ -277,10 +277,7 @@ var processTest = function (test) {
       })
       .then(function () {
         return postResult();
-      })
-      .then(function () {
-        resolve("done");
-      })
+      })      
     //.then(sleep(100))      
 
   })
