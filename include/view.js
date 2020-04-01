@@ -31,7 +31,7 @@ function addEmptyRowsToTestDetailsTable() {
 
 function addTestInfoToTestDetailsTable(testId, testName, requestId, request, requestType) {
   var table = document.getElementById("testDetailsTable");
-  
+
   for (var i = 1; i < table.rows.length; i++) {
     var row = table.rows[i]
     var rowTestId = row.cells[0].innerHTML
@@ -39,7 +39,7 @@ function addTestInfoToTestDetailsTable(testId, testName, requestId, request, req
     if (rowTestId === testId) {
       row.insertCell(1).innerHTML = testName;
       //requestCell = row.insertCell(2).createElement('a');
-      row.insertCell(2).innerHTML = '<a href="https://eparkko-lab.github.io/webauthn-playground?requestType='+requestType+'&webauthnRequest='+request+'"target="_blank">'+requestId+'</a>';
+      row.insertCell(2).innerHTML = '<a href="https://eparkko-lab.github.io/webauthn-playground?requestType=' + requestType + '&webauthnRequest=' + request + '"target="_blank">' + requestId + '</a>';
       //requestCell.setAttribute('href','')
       //requestCell.appendChild(createTextNode('r1'));
     }
@@ -50,44 +50,47 @@ function addTestInfoToTestDetailsTable(testId, testName, requestId, request, req
 function addResultsInfoToTestDetailsTable() {
   var table = document.getElementById("testDetailsTable");
   verifiedResultsDict = JSON.parse(document.getElementById("verifiedResults").innerHTML)
-  
+
   for (var i = 1; i < table.rows.length; i++) {
     var row = table.rows[i];
-    var rowTestId = row.cells[0].innerHTML; 
-    console.log("beginning testId: " + rowTestId )
+    var rowTestId = row.cells[0].innerHTML;
+    console.log("beginning testId: " + rowTestId)
     var j = 1;
-    for (var key in verifiedResultsDict[rowTestId]["assertions"]) {
-      //Add the details to the following rows since there are many results per test
-      resultsRowNumber = i + j;
-      console.log("  resultsRowNumber: " + resultsRowNumber);
-      resultsRow = table.insertRow(resultsRowNumber);
-      //resultsRow = table.rows[resultsRowNumber];
-      
-      
-      resultsCell=resultsRow.insertCell(0);
-      resultsCell.innerHTML="-";
-      resultsCell.style.color="black";
-      resultsCell=resultsRow.insertCell(1);
-      resultsCell.innerHTML="-";
-      resultsCell.style.color="black";
-      resultsCell=resultsRow.insertCell(2);
-      resultsCell.innerHTML="-";
-      resultsCell.style.color="black";
-      resultsCell=resultsRow.insertCell(3);
-      resultsCell.innerHTML=verifiedResultsDict[rowTestId]["assertions"][key].assertionField;;
-      resultsCell.style.color="black";
-      resultsCell=resultsRow.insertCell(4);
-      resultsCell.innerHTML=verifiedResultsDict[rowTestId]["assertions"][key].expectedValue;
-      resultsCell.style.color="black";
-      resultsCell=resultsRow.insertCell(5);
-      resultsCell.innerHTML=verifiedResultsDict[rowTestId]["assertions"][key].status;
-      resultsCell.style.color="black";
-      if (resultsCell.innerHTML === "PASS"){
-        resultsCell.style.backgroundColor="green";
-      } else {
-        resultsCell.style.backgroundColor="red";
-      } 
-      j++;
+    if (rowTestId in verifiedResultsDict)
+    {
+      for (var key in verifiedResultsDict[rowTestId]["assertions"]) {
+        //Add the details to the following rows since there are many results per test
+        resultsRowNumber = i + j;
+        console.log("  resultsRowNumber: " + resultsRowNumber);
+        resultsRow = table.insertRow(resultsRowNumber);
+        //resultsRow = table.rows[resultsRowNumber];
+
+
+        resultsCell = resultsRow.insertCell(0);
+        resultsCell.innerHTML = "-";
+        resultsCell.style.color = "black";
+        resultsCell = resultsRow.insertCell(1);
+        resultsCell.innerHTML = "-";
+        resultsCell.style.color = "black";
+        resultsCell = resultsRow.insertCell(2);
+        resultsCell.innerHTML = "-";
+        resultsCell.style.color = "black";
+        resultsCell = resultsRow.insertCell(3);
+        resultsCell.innerHTML = verifiedResultsDict[rowTestId]["assertions"][key].assertionField;;
+        resultsCell.style.color = "black";
+        resultsCell = resultsRow.insertCell(4);
+        resultsCell.innerHTML = verifiedResultsDict[rowTestId]["assertions"][key].expectedValue;
+        resultsCell.style.color = "black";
+        resultsCell = resultsRow.insertCell(5);
+        resultsCell.innerHTML = verifiedResultsDict[rowTestId]["assertions"][key].status;
+        resultsCell.style.color = "black";
+        if (resultsCell.innerHTML === "PASS") {
+          resultsCell.style.backgroundColor = "green";
+        } else {
+          resultsCell.style.backgroundColor = "red";
+        }
+        j++;
+      }
     }
     console.log("finished: " + rowTestId);
     console.log("table length: " + table.rows.length)
