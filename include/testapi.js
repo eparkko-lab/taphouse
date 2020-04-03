@@ -22,8 +22,13 @@ function executeTests() {
   getSuite(GSuiteName);
   hide("verifiedResultsButton", false);
   hide("verifiedResults", false);
+  
   sessionId = document.getElementById("sessionId")
-  sessionId.textContent = uuidv4();
+  
+  if (! sessionId.textContent || sessionId.textContent === '')
+  {
+    sessionId.textContent = uuidv4();
+  }
 
   var tests = suiteDetails.tests;
   var orderedTests = tests.sort((a, b) => (parseInt(a.sequence) > parseInt(b.sequence)) ? 1 : -1);
