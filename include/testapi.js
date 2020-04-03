@@ -25,9 +25,9 @@ function executeTests() {
   
   sessionId = document.getElementById("sessionId")
   
-  if (! sessionId.textContent || sessionId.textContent === '')
+  if (! sessionId.value || sessionId.value === '')
   {
-    sessionId.textContent = uuidv4();
+    sessionId.value = uuidv4();
   }
 
   var tests = suiteDetails.tests;
