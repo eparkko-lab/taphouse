@@ -52,7 +52,7 @@ function executeTests() {
 }
 
 function getTestResults() {
-  sessionId = document.getElementById("sessionId").textContent
+  sessionId = document.getElementById("sessionId").value
   var xhttp = new XMLHttpRequest();
   xhttp.open("GET", "https://xhbg5kpuu7.execute-api.us-east-2.amazonaws.com/p/verifyresults/" + sessionId + "?client_id=yaN8bv3EOemBtWNVPEryZO67U0OFJ14l4DNEI640", true);
   xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
@@ -259,7 +259,7 @@ var processTest = async function (test) {
         });
 
         result = {
-          sessionId: document.getElementById("sessionId").textContent,
+          sessionId: document.getElementById("sessionId").value,
           webauthnRequest: btoa(requestDetails["populatedWebAuthnRequest"]),
           webauthnResponse: webAuthnResponse,
           userAgent: navigator.userAgent,
