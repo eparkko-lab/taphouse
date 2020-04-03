@@ -56,6 +56,7 @@ function addResultsInfoToTestDetailsTable() {
     var rowTestId = row.cells[0].innerHTML;
     console.log("beginning testId: " + rowTestId)
     var j = 1;
+    resultsRowNumber = i;
     if (rowTestId in verifiedResultsDict)
     {
       for (var key in verifiedResultsDict[rowTestId]["assertions"]) {
