@@ -24,12 +24,9 @@ function executeTests() {
   hide("verifiedResults", false);
   
   sessionId = document.getElementById("sessionId")
+      
+  sessionId.value = uuidv4();
   
-  if (! sessionId.value || sessionId.value === '')
-  {
-    sessionId.value = uuidv4();
-  }
-
   var tests = suiteDetails.tests;
   var orderedTests = tests.sort((a, b) => (parseInt(a.sequence) > parseInt(b.sequence)) ? 1 : -1);
   var arrayLength = orderedTests.length;
